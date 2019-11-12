@@ -1181,9 +1181,11 @@ class Jenkins(object):
             raise JenkinsException('job[%s] already exists' % (name))
 
         try:
+            #print (config_xml)
+            #print (type(config_xml))
             self.jenkins_open(requests.Request(
                 'POST', self._build_url(CREATE_JOB, locals()),
-                data=config_xml.encode('utf-8'),
+                data=config_xml,# .encode('utf-8'),
                 headers=DEFAULT_HEADERS
             ))
         except NotFoundException:
@@ -1213,7 +1215,7 @@ class Jenkins(object):
         reconfig_url = self._build_url(CONFIG_JOB, locals())
         self.jenkins_open(requests.Request(
             'POST', reconfig_url,
-            data=config_xml.encode('utf-8'),
+            data=config_xml, # .encode('utf-8'),
             headers=DEFAULT_HEADERS
         ))
 
